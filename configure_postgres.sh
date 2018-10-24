@@ -2,6 +2,7 @@
 
 #defaults
 SHARED_BUFFERS=${SHARED_BUFFERS:-"2GB"}
+MAX_CONNECTIONS=${MAX_CONNECTIONS:-"100"}
 PG_PASSWORD=${PG_PASSWORD:-"postgres"}
 WHITELIST_NETWORKS=${WHITELIST_NETWORKS:-"10.0.0.0/8,192.168.0.0/16"}
 
@@ -9,6 +10,7 @@ mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r
 
 #apply memory settings to config file
 sed -i "s/\*\*SHARED_BUFFERS\*\*/$SHARED_BUFFERS/" $CONFIG_PATH/postgresql.conf
+sed -i "s/\*\*MAX_CONNECTIONS\*\*/$MAX_CONNECTIONS/" $CONFIG_PATH/postgresql.conf
 
 #whitelist networks in pg_hba
 for n in $(echo $WHITELIST_NETWORKS | tr "," " "); do
